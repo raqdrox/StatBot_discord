@@ -12,7 +12,7 @@ handler = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='w'
 handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
 logger.addHandler(handler)
 
-bot_token='NjkwMTk4MzAwNjE5ODMzNDc5.XuuhWA.o5DcKpgUxxipkZvY8pbdKpdPpNs'
+bot_token=''
 bot = commands.Bot(command_prefix = 'd:')
 @bot.event
 async def on_ready():
