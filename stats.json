@@ -1,5 +1,22 @@
 {
-    "guilds": {
-        
+    "guilds_stats": {
+        "G_ID1": {
+            "bot_role": id,
+            "mem_tot_id": id,
+            "mem_onl_id": id,
+            "bot_id": id,
+            "mem_tot_count": count,
+            "mem_onl_count": count,
+            "bot_count": count
+        },
+        "G_ID2": {
+			"bot_role": id,
+            "mem_tot_id": id,
+            "mem_onl_id": id,
+            "bot_id": id,
+            "mem_tot_count": count,
+            "mem_onl_count": count,
+            "bot_count": count
+        }
     }
 }
