@@ -1,17 +1,18 @@
-StatBoT  v0.2a
+# StatBoT  v0.2a
 StatBot is a Discord Bot for Handling Server Statistics and some useful commands.
 StatBot is WIP currently.
 
-Functions
-Logging :
+## Functions :-
+
+#### Logging :
 1. Total "Members" in a server(Besides bots)
 2. Number Of Bots in the server(determined by the bot or bots role) 
 3. Number Of Online Members At A Given Time
 
-Updating:
+#### Updating:
 Statbot can create channels and use them for updating the Server Stats in real time by updating their Channel Names.
 
-Link Shortener:
+#### Link Shortener:
 StatBot Uses shorte.st api for creating short links
 
 
