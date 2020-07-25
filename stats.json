@@ -18,5 +18,9 @@
             "mem_onl_count": count,
             "bot_count": count
         }
-    }
+    },
+	"prefixes":{
+		"G_ID1":["prefix"],
+		"G_ID1":["prefix"]
+	}
 }

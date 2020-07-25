@@ -15,7 +15,17 @@ logger.addHandler(handler)
 
 #setting up bot
 bot_token='TOKEN'
-bot = commands.Bot(command_prefix = 'sb!')
+
+async def getPrefix(bot, message):
+    with open('stats.json', 'r') as f:
+        prefixList = json.load(f)
+    prefix=prefixList['prefixes'].get(str(message.guild.id))
+    if len(prefix)==0:
+        return 'sb!'
+    return prefix
+
+bot = commands.Bot(command_prefix=getPrefix)
+
 bot.remove_command('help')
 
 
@@ -24,9 +34,77 @@ bot.remove_command('help')
 async def on_ready():
     print('Logging in...')
     print('Ready')
+    await bot.change_presence(activity=discord.Game('Under Testing!!!'))
     cog_loader() #load cogs at start
-    
 
+@bot.event
+async def on_guild_join(guild):
+    with open('stats.json', 'r') as f:
+        statconfigs = json.load(f)
+    
+    statconfigs['prefixes'][f'{guild.id}']=[]
+
+    with open('stats.json', 'w') as f:
+        json.dump(statconfigs,f,indent=4)
+
+@bot.event
+async def on_guild_remove(guild):
+    with open('stats.json', 'r') as f:
+        statconfigs = json.load(f)
+
+    del statconfigs['prefixes'][f'{guild.id}']
+    
+    with open('stats.json', 'w') as f:
+        json.dump(statconfigs,f,indent=4)
+
+@bot.command()
+@commands.has_guild_permissions(administrator=True)
+async def addprefix(ctx,newprefix):
+    '''Add Custom Prefixes For Guild'''
+    with open('stats.json', 'r') as f:
+        statconfigs = json.load(f)
+    if(len(statconfigs['prefixes'][f'{guild.id}'])<2):
+        statconfigs['prefixes'][f'{guild.id}'].append(newprefix)
+
+        with open('stats.json', 'w') as f:
+            json.dump(statconfigs,f,indent=4)
+
+        ctx.send(f'Added Prefix -> {newprefix} \n Use prefixlist to get list of prefixes for this guild.')
+    else:
+        ctx.send('Cannot Add More Than 2 Custom Prefixes. \n Use delprefix to remove a prefix.')
+
+@bot.command()
+@commands.has_guild_permissions(administrator=True)
+async def delprefix(ctx,prefix):
+    '''Delete Custom Prefixes For Guild'''
+    with open('stats.json', 'r') as f:
+        statconfigs = json.load(f)
+    try:
+        statconfigs['prefixes'][f'{guild.id}'].remove(prefix)
+    except ValueError:
+        ctx.send('Enter A Valid Prefix')
+    else:
+        with open('stats.json', 'w') as f:
+            json.dump(statconfigs,f,indent=4)
+
+@bot.command()
+@commands.has_guild_permissions(administrator=True)
+async def guildprefixes(ctx):
+    with open('stats.json','r') as f:
+        prefixes_json=json.load(f)
+        
+    prefixes=prefixes_json['prefixes'][f'{ctx.message.guild.id}']
+
+    embed_ln=discord.Embed(
+            title=ctx.message.guild.name,
+            color=discord.Color.dark_teal()
+        )
+        
+    i=0
+    for lnk in prefixes:
+        embed_ln.add_field(name=f'{lnk}',value=f'{i}',inline=False)
+        i+=1
+    await ctx.send(embed=embed_ln)
 @bot.command()
 @commands.has_guild_permissions(administrator=True)
 async def stat_init(ctx,rolename='bot'): 
@@ -242,5 +320,6 @@ async def unban(ctx,*,member):
             await ctx.send(f'Unbanned {user.mention}')
 
 '''--------------------------------------'''
+
 
 bot.run(bot_token)#run the bot

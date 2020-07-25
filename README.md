@@ -18,6 +18,13 @@ StatBot Uses ***shorte.st*** api for creating short links
 
 ## ChangeLogs:
 
+*alphabetical versions represent master Branch* **Example: 0.2a** 
+*decimal versions represent testing Branch (Unstable)* **Example: 0.3.1**
+
+### v0.3.1
+1.	Adding And Modifying *Per Guild Prefixes* Now Possible
+2.	*Per Guild Prefixes* Logged In ***stats.json***
+
 ### v0.2b
 1.	Link Shortener Now Supports *Logging*
 2.	Links per Guild Are Now Logged In **links.json**
