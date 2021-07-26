@@ -1,5 +1,4 @@
-# Warning : Deprecated
-# Codebase Redesign Imminent
+# Refactor Needed
 
 # StatBoT  v0.2b
 **StatBot** is a ***Discord Bot*** For Handling Server Statistics and some useful commands.
